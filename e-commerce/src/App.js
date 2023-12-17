@@ -11,10 +11,12 @@ import ProductList from './components/ProductList';
 import Context from "./Context";
 
 export default class App extends Component {
-  componentDidMount() {
+
+  async componentDidMount() {
     let user = localStorage.getItem("user");
+    const products = await axios.get('http://localhost:3001/products');
     user = user ? JSON.parse(user) : null;
-    this.setState({ user });
+    this.setState({ user,  products: products.data });
   }
 
   login = async (email, password) => {
